@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.xxz.user.mapper.UserMapper">
+
+    <sql id="base_column">
+        user_id, username, password
+    </sql>
+    
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId" parameterType="org.xxz.domain.user.User">
+        insert into user(<include refid="base_column"/>) values(#{userId}, #{username}, #{password})
+    </insert>
+
+</mapper>

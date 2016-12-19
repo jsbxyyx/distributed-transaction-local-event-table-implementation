@@ -1,0 +1,47 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: transaction-user    # 项目名称尽量用小写
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/transaction2?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+    initialSize: 5
+    minIdle: 5
+    maxActive: 5
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+druid:
+  allow: 127.0.0.1
+  deny: 
+  loginUsername: root
+  loginPassword: root
+  resetEnable: false
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/    # 指定注册中心的地址
+      #defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka #高可用地址
+  instance:
+    preferIpAddress: true
+
+mq:
+  namesrvAddr: 127.0.0.1:9876
+  
+  consumerGroup: MessageConsumerGroup
+  
+  producerGroup: MessageProducerGroup
+  
+  topic: transactionTopic
+
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.xxz.user.mapper.EventPublishMapper">
+
+    <sql id="base_column">
+        id, status, payload, create_time, event_type
+    </sql>
+    
+    <sql id="table_name">event_publish</sql>
+    
+    <insert id="insertEventPublish" parameterType="org.xxz.domain.event.EventPublish">
+        insert into <include refid="table_name"/>(<include refid="base_column"/>) 
+        values(#{id}, #{status}, #{payload}, #{createTime}, #{eventType})
+    </insert>
+    
+    <update id="updateEventPublishStatus" parameterType="org.xxz.domain.event.EventPublish">
+        update <include refid="table_name"/> 
+        set status = #{status} 
+        where id = #{id}
+    </update>
+    
+    <select id="getNewEventPublishs" resultType="org.xxz.domain.event.EventPublish">
+        select <include refid="base_column"/> from <include refid="table_name"/> 
+        where status = 'NEW'
+    </select>
+
+</mapper>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="login">
+<head>
+	<meta charset="UTF-8">
+	<title>login</title>
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<form role="form" onsubmit="return false;" ng-controller="loginController">
+		  <div class="form-group">
+		    <label>Username：
+		    <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+		    </label>
+		  </div>
+		  <div class="form-group">
+		    <label>Password
+		    <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+		    </label>
+		  </div>
+		  <a href="javascritp:;" ng-click="submit()" class="btn btn-default">Submit</a>
+		</form>
+	</div>
+
+	<script src="js/angular.js"></script>
+	<script src="js/login.js"></script>
+</body>
+</html>
