@@ -1,8 +1,5 @@
 package org.xxz.account.service.impl;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.xxz.account.mapper.EventProcessMapper;
 import org.xxz.account.service.AccountService;
 import org.xxz.account.service.EventProcessService;
+import org.xxz.base.util.JsonMapper;
 import org.xxz.domain.account.AccountDO;
 import org.xxz.domain.event.EventProcess;
 import org.xxz.enums.EventProcessStatus;
 import org.xxz.enums.EventType;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 
 @Service
 public class EventProcessServiceImpl implements EventProcessService {
@@ -41,16 +39,10 @@ public class EventProcessServiceImpl implements EventProcessService {
     public void dealPayload(EventProcess e) {
         String eventType = e.getEventType();
         if(StringUtils.equals(eventType, EventType.USER_CREATED.getKey())) {
-            ObjectMapper mapper = new ObjectMapper(); 
-            try {
-                AccountDO accountDO = mapper.readValue(e.getPayload(), AccountDO.class);
-                accountService.addAccount(accountDO);
-                
-                e.setStatus(EventProcessStatus.PROCESSED.getKey());
-                eventProcessMapper.updateEventProcessStatus(e);
-            } catch (IOException e1) {
-                throw new RuntimeException(e1);
-            }
+            AccountDO accountDO = JsonMapper.nonDefaultMapper().fromJson(e.getPayload(), AccountDO.class);
+            accountService.addAccount(accountDO);
+            e.setStatus(EventProcessStatus.PROCESSED.getKey());
+            eventProcessMapper.updateEventProcessStatus(e);
         }
     }
 

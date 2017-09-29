@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.xxz.base.util.JsonMapper;
 import org.xxz.domain.account.Account;
 import org.xxz.domain.event.EventPublish;
 import org.xxz.domain.user.User;
@@ -46,12 +47,7 @@ public class UserServiceImpl implements UserService {
         account.setUserId(user.getUserId());
         account.setAmount(200);
         
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            event.setPayload(mapper.writeValueAsString(account));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        event.setPayload(JsonMapper.nonDefaultMapper().toJson(account));
         evnetPublishService.saveEventPublish(event);
         
         return 0;

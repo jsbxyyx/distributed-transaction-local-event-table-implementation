@@ -1,14 +1,13 @@
 package org.xxz.user.scheduled;
 
-import java.util.List;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.xxz.domain.event.EventPublish;
 import org.xxz.user.service.EventPublishService;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
 
 @Slf4j
 @Component
